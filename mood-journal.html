@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Journal - Healing Hub</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/mood-journal.css">
+    <link rel="stylesheet" href="../css/popup.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="nav-logo">
+                <div class="logo-row">
+                    <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="14" fill="url(#gradient)"/>
+                        <path d="M16 8C16 8 12 14 12 18C12 20.2091 13.7909 22 16 22C18.2091 22 20 20.2091 20 18C20 14 16 8 16 8Z" fill="white"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="32" y2="32">
+                                <stop offset="0%" style="stop-color:#6366f1"/>
+                                <stop offset="100%" style="stop-color:#10b981"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h2>Healing Hub</h2>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="./index.html" class="menu-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="quiz.html" class="menu-item">
+                    <i class="fas fa-smile"></i>
+                    <span>Vibe Check</span>
+                </a>
+
+                <a href="mood-journal.html" class="menu-item active">
+                    <i class="fas fa-book"></i>
+                    <span>Journal</span>
+                </a>
+
+                <a href="habbits.html" class="menu-item">
+                    <i class="fas fa-fire"></i>
+                    <span>Habits</span>
+                </a>
+
+                <a href="chatbot.html" class="menu-item">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Chat</span>
+                </a>
+
+                <a href="profile.html" class="menu-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <div class="header-info">
+                    <h1><i class="fas fa-pen-fancy"></i> Mood Journal</h1>
+                    <p>Express yourself freely and discover patterns in your emotions</p>
+                </div>
+                <div class="header-quick-stats">
+                    <div class="quick-stat">
+                        <span class="stat-num" id="total-entries">0</span>
+                        <span class="stat-text">Total Entries</span>
+                    </div>
+                    <div class="quick-stat">
+                        <span class="stat-num" id="current-streak">0</span>
+                        <span class="stat-text">Day Streak</span>
+                    </div>
+                    <div class="quick-stat">
+                        <span class="stat-num" id="avg-mood">--</span>
+                        <span class="stat-text">Average Mood</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tabs-container">
+                <button class="tab-btn active" onclick="switchJournalTab(0)">
+                    <i class="fas fa-plus-circle"></i> New Entry
+                </button>
+                <button class="tab-btn" onclick="switchJournalTab(1)">
+                    <i class="fas fa-history"></i> History
+                </button>
+                <button class="tab-btn" onclick="switchJournalTab(2)">
+                    <i class="fas fa-chart-line"></i> Insights
+                </button>
+                <button class="tab-btn" onclick="switchJournalTab(3)">
+                    <i class="fas fa-tags"></i> Tags
+                </button>
+            </div>
+
+            <div class="journal-content">
+                <div class="journal-tab active" id="journal-tab-0">
+                    <div class="entry-container">
+                        <div class="card mood-card">
+                            <h3>How are you feeling right now?</h3>
+                            <div class="mood-selector">
+                                <button class="mood-btn" onclick="setMood('happy', this)" data-mood="happy">
+                                    <span class="mood-emoji">😊</span>
+                                    <span class="mood-label">Happy</span>
+                                </button>
+                                <button class="mood-btn" onclick="setMood('calm', this)" data-mood="calm">
+                                    <span class="mood-emoji">😌</span>
+                                    <span class="mood-label">Calm</span>
+                                </button>
+                                <button class="mood-btn" onclick="setMood('neutral', this)" data-mood="neutral">
+                                    <span class="mood-emoji">😐</span>
+                                    <span class="mood-label">Neutral</span>
+                                </button>
+                                <button class="mood-btn" onclick="setMood('anxious', this)" data-mood="anxious">
+                                    <span class="mood-emoji">😟</span>
+                                    <span class="mood-label">Anxious</span>
+                                </button>
+                                <button class="mood-btn" onclick="setMood('sad', this)" data-mood="sad">
+                                    <span class="mood-emoji">😢</span>
+                                    <span class="mood-label">Sad</span>
+                                </button>
+                                <button class="mood-btn" onclick="setMood('angry', this)" data-mood="angry">
+                                    <span class="mood-emoji">😠</span>
+                                    <span class="mood-label">Angry</span>
+                                </button>
+                            </div>
+                            <input type="hidden" id="selected-mood" value="neutral">
+                        </div>
+
+                        <div class="card">
+                            <div class="slider-group">
+                                <label>Mood Intensity (1-10)</label>
+                                <div class="slider-container">
+                                    <input type="range" id="mood-intensity" min="1" max="10" value="5" class="mood-slider" onchange="updateIntensityDisplay()">
+                                    <span class="intensity-value" id="intensity-display">5</span>
+                                </div>
+                            </div>
+
+                            <div class="slider-group">
+                                <label>Energy Level (1-10)</label>
+                                <div class="slider-container">
+                                    <input type="range" id="energy-level" min="1" max="10" value="5" class="mood-slider" onchange="updateEnergyDisplay()">
+                                    <span class="intensity-value" id="energy-display">5</span>
+                                </div>
+                            </div>
+
+                            <div class="slider-group">
+                                <label>Sleep Quality (1-10)</label>
+                                <div class="slider-container">
+                                    <input type="range" id="sleep-quality" min="1" max="10" value="5" class="mood-slider" onchange="updateSleepDisplay()">
+                                    <span class="intensity-value" id="sleep-display">5</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h4>What's affecting your mood? (Select all that apply)</h4>
+                            <div class="tags-grid">
+                                <button class="tag-btn" onclick="toggleTag(this, 'work')">💼 Work</button>
+                                <button class="tag-btn" onclick="toggleTag(this, 'relationships')">❤️ Relationships</button>
+                                <button class="tag-btn" onclick="toggleTag(this, 'health')">🏥 Health</button>
+                                <button class="tag-btn" onclick="toggleTag(this, 'finances')">💰 Finances</button>
+                                <button class="tag-btn" onclick="toggleTag(this, 'family')">👨‍👩‍👧 Family</button>
+                                <button class="tag-btn" onclick="toggleTag(this, 'friends')">👥 Friends</button>
+                                <button class="tag-btn" onclick="toggleTag(this, 'school')">📚 School</button>
+                                <button class="tag-btn" onclick="toggleTag(this, 'hobbies')">🎨 Hobbies</button>
+                                <button class="tag-btn" onclick="toggleTag(this, 'achievement')">🏆 Achievement</button>
+                                <button class="tag-btn" onclick="toggleTag(this, 'loss')">💔 Loss</button>
+                            </div>
+                            <input type="hidden" id="selected-tags" value="">
+                        </div>
+
+                        <div class="card">
+                            <h4>Write your thoughts (Optional)</h4>
+                            <textarea id="journal-text" class="journal-textarea" placeholder="What's on your mind? Write freely, without judgment. Share as much or as little as you'd like..." onkeyup="updateCharCount()"></textarea>
+
+                            <div class="char-count">
+                                <span id="char-count">0</span> / 5000 characters
+                            </div>
+                        </div>
+
+                        <div class="save-actions">
+                            <button onclick="saveJournalEntry()" class="btn-primary btn-lg">
+                                <i class="fas fa-save"></i> Save Entry
+                            </button>
+                            <button onclick="clearEntry()" class="btn-secondary btn-lg">
+                                <i class="fas fa-redo"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="ai-analysis" class="ai-analysis hidden">
+                        <div class="analysis-header">
+                            <h3><i class="fas fa-robot"></i> AI Insights</h3>
+                            <button onclick="closeAnalysis()" class="close-btn">×</button>
+                        </div>
+                        <div id="analysis-content"></div>
+                    </div>
+                </div>
+
+                <div class="journal-tab" id="journal-tab-1">
+                    <div class="history-controls">
+                        <div class="filter-group">
+                            <label>Filter by Mood:</label>
+                            <select id="mood-filter" onchange="filterEntries()">
+                                <option value="">All Moods</option>
+                                <option value="happy">😊 Happy</option>
+                                <option value="calm">😌 Calm</option>
+                                <option value="neutral">😐 Neutral</option>
+                                <option value="anxious">😟 Anxious</option>
+                                <option value="sad">😢 Sad</option>
+                                <option value="angry">😠 Angry</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label>Sort by:</label>
+                            <select id="sort-filter" onchange="filterEntries()">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="mood">Mood (Happy to Sad)</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label>Search:</label>
+                            <input type="text" id="search-entries" placeholder="Search entries..." onkeyup="filterEntries()">
+                        </div>
+                    </div>
+
+                    <div id="entries-timeline" class="entries-timeline"></div>
+
+                    <div id="no-entries" class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <h3>No entries yet</h3>
+                        <p>Start journaling to see your entries here</p>
+                    </div>
+                </div>
+
+                <div class="journal-tab" id="journal-tab-2">
+                    <div class="insights-grid">
+                        <div class="card insight-card">
+                            <h3>Mood Distribution</h3>
+                            <div id="mood-chart" class="mood-chart"></div>
+                        </div>
+
+                        <div class="card insight-card">
+                            <h3>Mood Trends (Last 7 Days)</h3>
+                            <div id="mood-trend" class="trend-chart"></div>
+                        </div>
+
+                        <div class="card insight-card full-width">
+                            <h3>Your Statistics</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-icon">📝</div>
+                                    <div class="stat-info">
+                                        <div class="stat-value" id="total-written">0</div>
+                                        <div class="stat-label">Total Words Written</div>
+                                    </div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-icon">📅</div>
+                                    <div class="stat-info">
+                                        <div class="stat-value" id="avg-per-entry">0</div>
+                                        <div class="stat-label">Avg Words/Entry</div>
+                                    </div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-icon">⚡</div>
+                                    <div class="stat-info">
+                                        <div class="stat-value" id="avg-energy">--</div>
+                                        <div class="stat-label">Avg Energy Level</div>
+                                    </div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-icon">😴</div>
+                                    <div class="stat-info">
+                                        <div class="stat-value" id="avg-sleep">--</div>
+                                        <div class="stat-label">Avg Sleep Quality</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card insight-card">
+                            <h3>Most Affecting Factors</h3>
+                            <div id="top-tags" class="tags-cloud"></div>
+                        </div>
+
+                        <div class="card insight-card">
+                            <h3>Personalized Recommendations</h3>
+                            <ul id="recommendations" class="recommendations-list"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="journal-tab" id="journal-tab-3">
+                    <div class="card">
+                        <h3>Your Tags & Patterns</h3>
+                        <div id="tags-analysis" class="tags-analysis"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="crisis-modal" class="modal-overlay hidden">
+        <div class="modal-content crisis-modal">
+            <button class="modal-close" onclick="closeCrisisModal()">×</button>
+            <div class="modal-icon">😔</div>
+            <h2>We're Here For You</h2>
+            <p>We noticed some distressing words in your entry. Please know that support is immediately available.</p>
+            <div class="crisis-contacts">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <strong>Call 988</strong>
+                        <p>Suicide & Crisis Lifeline</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-comments"></i>
+                    <div>
+                        <strong>Text HOME to 741741</strong>
+                        <p>Crisis Text Line</p>
+                    </div>
+                </div>
+            </div>
+            <button onclick="closeCrisisModal()" class="btn-primary btn-lg">I'm Safe, Thank You</button>
+        </div>
+    </div>
+
+    <script src="../js/api-config.js"></script>
+    <script src="../js/auth-service.js"></script>
+    <script src="../js/popup.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/mood-journal.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (typeof loadDarkMode === "function") {
+                loadDarkMode();
+            }
+        });
+    </script>
+</body>
+</html>

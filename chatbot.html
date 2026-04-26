@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat - Healing Hub</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/chatbot.css">
+    <link rel="stylesheet" href="../css/popup.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+<div class="app-container">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-top">
+            <div class="logo-area">
+                <div class="logo-circle">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Healing Hub</h1>
+                    <p id="sidebar-name">Good afternoon</p>
+                </div>
+            </div>
+
+            <ul class="nav-menu">
+
+                <li>
+                    <a href="./index.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quiz.html" class="nav-link">
+                        <i class="fas fa-face-smile"></i>
+                        <span>Vibe Check</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="mood-journal.html" class="nav-link">
+                        <i class="fas fa-book"></i>
+                        <span>Journal</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="habbits.html" class="nav-link">
+                        <i class="fas fa-fire"></i>
+                        <span>Habits</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="chatbot.html" class="nav-link active">
+                        <i class="fas fa-robot"></i>
+                        <span>AI Chat</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="profile.html" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="sidebar-footer">
+            <button class="btn-logout" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </div>
+
+    </aside>
+
+    <main class="main-content">
+
+        <div class="chat-header">
+            <div class="header-content">
+                <h2>
+                    <i class="fas fa-robot"></i>
+                    Your AI Wellness Assistant
+                </h2>
+                <p>Safe, supportive, and always here to listen</p>
+            </div>
+
+            <div class="header-actions">
+                <button class="btn-icon" id="clear-btn">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+
+                <button class="btn-icon" id="info-btn">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="chat-wrapper">
+
+            <div class="chat-window" id="chat-window">
+
+                <div class="chat-message bot-message">
+                    <div class="message-avatar bot-avatar">
+                        <i class="fas fa-heart"></i>
+                    </div>
+
+                    <div class="message-bubble">
+                        <p>
+                            Hello! I'm your Healing Hub AI Assistant.
+                            I'm here to listen and support you.
+                        </p>
+
+                        <p class="sub-message">
+                            How are you feeling today?
+                        </p>
+
+                        <span class="message-time">
+                            Just now
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="quick-replies" id="quick-replies">
+
+                <button class="quick-reply-btn"
+                        onclick='sendQuickReply("I am feeling anxious today")'>
+                    😰 Feeling Anxious
+                </button>
+
+                <button class="quick-reply-btn"
+                        onclick='sendQuickReply("I need help managing stress")'>
+                    😓 Stressed Out
+                </button>
+
+                <button class="quick-reply-btn"
+                        onclick='sendQuickReply("Can you suggest a coping technique?")'>
+                    🧘 Need Coping Tips
+                </button>
+
+                <button class="quick-reply-btn"
+                        onclick='sendQuickReply("I just want to talk")'>
+                    💭 Just Want to Talk
+                </button>
+
+            </div>
+
+            <div class="typing-indicator hidden"
+                 id="typing-indicator">
+
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <p>
+                    AI Assistant is typing...
+                </p>
+
+            </div>
+
+            <div class="chat-input-container">
+
+                <div class="input-wrapper">
+
+                    <input
+                        type="text"
+                        id="user-chat-input"
+                        class="chat-input"
+                        placeholder="Share your thoughts..."
+                        autocomplete="off"
+                    >
+
+                    <button class="btn-send"
+                            id="send-btn">
+
+                        <i class="fas fa-paper-plane"></i>
+
+                    </button>
+
+                </div>
+
+                <p class="input-hint">
+                    💡 Tip: Share anything freely
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="../js/api-config.js"></script>
+<script src="../js/auth-service.js"></script>
+<script src="../js/popup.js"></script>
+<script src="../js/theme.js"></script>
+<script src="../js/chatbot.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    if (typeof loadDarkMode === "function") {
+        loadDarkMode();
+    }
+});
+</script>
+
+</body>
+</html>

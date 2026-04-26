@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Healing Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/popup.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="nav-logo">
+                <div class="logo-row">
+                    <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="14" fill="url(#gradient)" />
+                        <path
+                            d="M16 8C16 8 12 14 12 18C12 20.2091 13.7909 22 16 22C18.2091 22 20 20.2091 20 18C20 14 16 8 16 8Z"
+                            fill="white" />
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="32" y2="32">
+                                <stop offset="0%" style="stop-color:#6366f1" />
+                                <stop offset="100%" style="stop-color:#10b981" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h2>Healing Hub</h2>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="index.html" class="menu-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="quiz.html" class="menu-item">
+                    <i class="fas fa-smile"></i>
+                    <span>Vibe Check</span>
+                </a>
+                <a href="mood-journal.html" class="menu-item">
+                    <i class="fas fa-book"></i>
+                    <span>Journal</span>
+                </a>
+                <a href="habbits.html" class="menu-item">
+                    <i class="fas fa-fire"></i>
+                    <span>Habits</span>
+                </a>
+                <a href="chatbot.html" class="menu-item">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Chat</span>
+                </a>
+                <a href="profile.html" class="menu-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="top-nav">
+                <div class="nav-left">
+                    <button class="menu-toggle" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title" id="navbarTitle">Dashboard</h1>
+                </div>
+
+                <div class="nav-right">
+                  <div class="search-box">
+                     <input type="text" id="dashboardSearchInput" placeholder="Search...">
+                         <i class="fas fa-search" id="dashboardSearchIcon"></i>
+                  </div>
+
+                    <button class="dark-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+                         <i class="fas fa-moon" id="darkModeIcon"></i>
+                    </button>
+
+                    <div class="notification-wrapper">
+                        <button class="notification-btn" onclick="toggleNotifications()">
+                            <i class="fas fa-bell"></i>
+                            <span id="notification-badge" class="notification-badge">0</span>
+                        </button>
+
+                        <div id="notification-panel" class="notification-panel hidden">
+                            <div class="notification-header">
+                                <h4>Notifications</h4>
+                                <button type="button" class="notification-clear-btn"
+                                    onclick="clearNotifications()">Clear</button>
+                            </div>
+                            <div id="notification-list" class="notification-list"></div>
+                        </div>
+                    </div>
+
+                    <div class="user-profile" onclick="toggleProfileMenu()">
+                        <img id="profile-avatar" src="https://via.placeholder.com/40" alt="User">
+                        <div class="profile-menu" id="profileMenu" style="display: none;">
+                            <a href="profile.html">My Profile</a>
+                            <a href="#" onclick="handleLogout()">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="welcome-card">
+                    <div class="welcome-text">
+                        <h2>Welcome back, <span id="userName">User</span>! 👋</h2>
+                        <p>You're doing great! Keep up your wellness journey.</p>
+                    </div>
+                    <a href="mood-journal.html" class="btn-primary">Start Journal</a>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card mood-card">
+                        <div class="stat-header">
+                            <h3>Mood Entries</h3>
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="stat-body">
+                            <p class="stat-number" id="moodCount">0</p>
+                            <p class="stat-change">Track your emotions</p>
+                        </div>
+                        <div class="stat-chart">
+                            <div class="mini-chart" id="moodChart"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card streak-card">
+                        <div class="stat-header">
+                            <h3>Day Streak</h3>
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="stat-body">
+                            <p class="stat-number" id="streakCount">0</p>
+                            <p class="stat-change">Keep it up!</p>
+                        </div>
+                        <div class="stat-circle">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="40" class="circle-bg"></circle>
+                                <circle cx="50" cy="50" r="40" class="circle-progress" id="streakCircle"
+                                   style="stroke-dasharray: 251.2; stroke-dashoffset: 251.2;"></circle>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="stat-card points-card">
+                        <div class="stat-header">
+                            <h3>Wellness Points</h3>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-body">
+                            <p class="stat-number" id="pointsCount">0</p>
+                            <p class="stat-change">Level 1</p>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" id="pointsProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card habits-card">
+                        <div class="stat-header">
+                            <h3>Active Habits</h3>
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="stat-body">
+                            <p class="stat-number" id="habitsCount">0</p>
+                            <p class="stat-change">Build healthy routines</p>
+                        </div>
+                        <div class="habit-list">
+                            <div class="habit-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Meditation</span>
+                            </div>
+                            <div class="habit-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Exercise</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW REMINDER SECTION -->
+                <section class="quick-actions-section">
+                    <div class="section-header">
+                        <h2>Today's Habit Reminders</h2>
+                        <a href="habbits.html" class="view-all">Manage Habits</a>
+                    </div>
+
+                    <div class="actions-grid" id="dashboardReminderGrid">
+                        <div class="action-card">
+                            <div class="action-icon habit-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <h4 id="reminderCountCard">0 Reminders</h4>
+                            <p>Set reminders in Habit Builder</p>
+                        </div>
+
+                        <div class="action-card">
+                            <div class="action-icon vibe-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h4 id="nextReminderTime">--:--</h4>
+                            <p>Next reminder time</p>
+                        </div>
+
+                        <div class="action-card">
+                            <div class="action-icon journal-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <h4 id="pendingHabitCount">0 Pending</h4>
+                            <p>Habits left for today</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="quick-actions-section">
+                    <h2>Quick Actions</h2>
+                    <div class="actions-grid">
+                        <a href="mood-journal.html" class="action-card">
+                            <div class="action-icon journal-icon">
+                                <i class="fas fa-pen-fancy"></i>
+                            </div>
+                            <h4>Journal</h4>
+                            <p>Write your thoughts</p>
+                        </a>
+                        <a href="quiz.html" class="action-card">
+                            <div class="action-icon vibe-icon">
+                                <i class="fas fa-smile-wink"></i>
+                            </div>
+                            <h4>Vibe Check</h4>
+                            <p>Quick assessment</p>
+                        </a>
+                        <a href="meditate.html" class="action-card">
+                            <div class="action-icon meditate-icon">
+                                <i class="fas fa-spa"></i>
+                            </div>
+                            <h4>Meditate</h4>
+                            <p>5-10 minutes</p>
+                        </a>
+                        <a href="chatbot.html" class="action-card">
+                            <div class="action-icon chat-icon">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <h4>AI Chat</h4>
+                            <p>Talk to AI</p>
+                        </a>
+                        <a href="habbits.html" class="action-card">
+                            <div class="action-icon habit-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h4>Habit Builder</h4>
+                            <p>Create new habits</p>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="recent-activity-section">
+                    <div class="section-header">
+                        <h2>Recent Activity</h2>
+                        <a href="mood-journal.html" class="view-all">View All</a>
+                    </div>
+                    <div class="activity-list" id="activityList">
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>No activity yet. Start your wellness journey!</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="wellness-tips">
+                    <div class="section-header">
+                        <h2>Daily Wellness Tips</h2>
+                    </div>
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <div class="tip-icon">💧</div>
+                            <h4>Stay Hydrated</h4>
+                            <p>Drink at least 8 glasses of water daily for optimal health.</p>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">🌙</div>
+                            <h4>Sleep Well</h4>
+                            <p>Get 7-9 hours of quality sleep for better mental health.</p>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">🚶</div>
+                            <h4>Walk Daily</h4>
+                            <p>A 30-minute walk can boost your mood and energy levels.</p>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">🧘</div>
+                            <h4>Breathe Deeply</h4>
+                            <p>Practice deep breathing exercises to reduce stress and anxiety.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <div id="journalModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Write Journal Entry</h2>
+                <button class="close-btn" onclick="closeJournal()">&times;</button>
+            </div>
+            <form id="journalForm" onsubmit="saveJournal(event)">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="journalTitle" placeholder="Today's thoughts..." required>
+                </div>
+                <div class="form-group">
+                    <label>Mood</label>
+                    <select id="journalMood" required>
+                        <option value="">Select mood</option>
+                        <option value="happy">😊 Happy</option>
+                        <option value="calm">😌 Calm</option>
+                        <option value="anxious">😰 Anxious</option>
+                        <option value="sad">😢 Sad</option>
+                        <option value="stressed">😡 Stressed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Entry</label>
+                    <textarea id="journalContent" placeholder="What's on your mind?" rows="6" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeJournal()">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Entry</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay" onclick="closeAllModals()" style="display: none;"></div>
+    <div id="toast" class="toast"></div>
+
+<script src="../js/api-config.js"></script>
+<script src="../js/auth-service.js"></script>
+<script src="../js/popup.js"></script>
+<script src="../js/theme.js"></script>
+<script src="../js/script.js"></script>
+</body>
+
+</html>

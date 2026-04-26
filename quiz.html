@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Assessment - Healing Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/quiz.css">
+    <link rel="stylesheet" href="../css/popup.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="nav-logo">
+                <div class="logo-row">
+                    <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="14" fill="url(#gradient)" />
+                        <path
+                            d="M16 8C16 8 12 14 12 18C12 20.2091 13.7909 22 16 22C18.2091 22 20 20.2091 20 18C20 14 16 8 16 8Z"
+                            fill="white" />
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="32" y2="32">
+                                <stop offset="0%" style="stop-color:#6366f1" />
+                                <stop offset="100%" style="stop-color:#10b981" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h2>Healing Hub</h2>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="./index.html" class="menu-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="quiz.html" class="menu-item active">
+                    <i class="fas fa-smile"></i>
+                    <span>Vibe Check</span>
+                </a>
+                <a href="mood-journal.html" class="menu-item">
+                    <i class="fas fa-book"></i>
+                    <span>Journal</span>
+                </a>
+                <a href="habbits.html" class="menu-item">
+                    <i class="fas fa-fire"></i>
+                    <span>Habits</span>
+                </a>
+                <a href="chatbot.html" class="menu-item">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Chat</span>
+                </a>
+                <a href="profile.html" class="menu-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1><i class="fas fa-brain"></i> Mental Health Assessment</h1>
+                <p>Take these quick assessments to better understand your mental health</p>
+            </div>
+
+            <div id="selection-view" class="quiz-selection">
+                <div class="quiz-buttons-grid">
+                    <button class="quiz-btn" onclick="beginQuiz('depression')"><span>DEPRESSION TEST</span><i class="fas fa-plus"></i></button>
+                    <button class="quiz-btn" onclick="beginQuiz('adhd')"><span>ADHD TEST</span><i class="fas fa-plus"></i></button>
+                    <button class="quiz-btn" onclick="beginQuiz('anxiety')"><span>ANXIETY TEST</span><i class="fas fa-plus"></i></button>
+                    <button class="quiz-btn" onclick="beginQuiz('ocd')"><span>OCD TEST</span><i class="fas fa-plus"></i></button>
+                    <button class="quiz-btn" onclick="beginQuiz('bipolar')"><span>BIPOLAR TEST</span><i class="fas fa-plus"></i></button>
+                    <button class="quiz-btn" onclick="beginQuiz('psychosis')"><span>PSYCHOSIS TEST</span><i class="fas fa-plus"></i></button>
+                    <button class="quiz-btn" onclick="beginQuiz('eating')"><span>EATING DISORDER TEST</span><i class="fas fa-plus"></i></button>
+                    <button class="quiz-btn" onclick="beginQuiz('ptsd')"><span>PTSD TEST</span><i class="fas fa-plus"></i></button>
+                    <button class="quiz-btn" onclick="beginQuiz('addiction')"><span>ADDICTION TEST</span><i class="fas fa-plus"></i></button>
+                    <button class="quiz-btn" onclick="beginQuiz('gambling')"><span>GAMBLING ADDICTION TEST</span><i class="fas fa-plus"></i></button>
+                    <button class="quiz-btn" onclick="beginQuiz('social')"><span>SOCIAL ANXIETY TEST</span><i class="fas fa-plus"></i></button>
+                    <button class="quiz-btn" onclick="beginQuiz('postpartum')"><span>POSTPARTUM DEPRESSION TEST</span><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+
+            <div id="quiz-view" class="quiz-container" style="display:none;">
+                <div class="quiz-header">
+                    <button class="btn-back" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back to Tests</button>
+                </div>
+                <div id="questions-area" class="quiz-questions-list"></div>
+                <div class="quiz-navigation">
+                    <button class="btn-primary" onclick="finishQuiz()"><i class="fas fa-check"></i> Submit & Get Results</button>
+                </div>
+            </div>
+
+            <div id="results-view" class="results-container" style="display:none;">
+                <div class="results-card">
+                    <button class="btn-back" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back to Tests</button>
+                    <div class="results-header">
+                        <h2 id="res-title"></h2>
+                        <div id="res-score" class="results-score"></div>
+                    </div>
+                    <div class="results-content">
+                        <div id="res-message"></div>
+                        <div id="res-recommendations" class="results-recommendations"></div>
+                    </div>
+                    <div class="results-actions">
+                        <button class="btn-primary" onclick="storeResults()"><i class="fas fa-save"></i> Save Results</button>
+                        <button class="btn-secondary" onclick="goBack()"><i class="fas fa-redo"></i> Take Another Test</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/api-config.js"></script>
+    <script src="../js/auth-service.js"></script>
+    <script src="../js/popup.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/quiz.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (typeof loadDarkMode === "function") {
+                loadDarkMode();
+            }
+        });
+    </script>
+</body>
+</html>

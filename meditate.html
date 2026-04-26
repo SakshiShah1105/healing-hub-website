@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meditate - Healing Hub</title>
+    <link rel="stylesheet" href="../css/meditate.css">
+    <link rel="stylesheet" href="../css/popup.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="meditate-wrapper">
+        <!-- Header -->
+        <header class="meditate-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <a href="index.html" class="back-btn" title="Back to Dashboard">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+
+                    <div class="logo-section">
+                        <svg width="40" height="40" viewBox="0 0 32 32" fill="none">
+                            <circle cx="16" cy="16" r="14" fill="url(#gradient)"/>
+                            <path d="M16 8C16 8 12 14 12 18C12 20.2091 13.7909 22 16 22C18.2091 22 20 20.2091 20 18C20 14 16 8 16 8Z" fill="white"/>
+                            <defs>
+                                <linearGradient id="gradient" x1="0" y1="0" x2="32" y2="32">
+                                    <stop offset="0%" style="stop-color:#6366f1"/>
+                                    <stop offset="100%" style="stop-color:#10b981"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="logo-text">
+                            <h1>Healing Hub</h1>
+                            <p>Take a calm mindful break</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="index.html" class="dashboard-link">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="meditate-content">
+            <!-- Hero Section -->
+            <section class="meditation-hero">
+                <div class="hero-inner">
+                    <div class="breathing-circle" id="breathingCircle"></div>
+                    <p class="breathing-text" id="breathingText">Breathe In</p>
+                </div>
+            </section>
+
+            <!-- Session Selection -->
+            <section class="session-section">
+                <div class="section-heading">
+                    <h2>Choose Your Session</h2>
+                    <p>Select a short session that matches your moment.</p>
+                </div>
+
+                <div class="sessions-grid">
+                    <div class="session-card" onclick="startMeditation(5, '5 Minutes')">
+                        <div class="session-icon">
+                            <i class="fas fa-hourglass-start"></i>
+                        </div>
+                        <h3>5 Minutes</h3>
+                        <p>Quick break</p>
+                    </div>
+
+                    <div class="session-card" onclick="startMeditation(10, '10 Minutes')">
+                        <div class="session-icon">
+                            <i class="fas fa-hourglass-half"></i>
+                        </div>
+                        <h3>10 Minutes</h3>
+                        <p>Standard session</p>
+                    </div>
+
+                    <div class="session-card" onclick="startMeditation(15, '15 Minutes')">
+                        <div class="session-icon">
+                            <i class="fas fa-hourglass-end"></i>
+                        </div>
+                        <h3>15 Minutes</h3>
+                        <p>Deep dive</p>
+                    </div>
+
+                    <div class="session-card" onclick="startMeditation(20, '20 Minutes')">
+                        <div class="session-icon">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                        <h3>20 Minutes</h3>
+                        <p>Full relaxation</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Meditation Types -->
+            <section class="types-section">
+                <div class="section-heading">
+                    <h2>Meditation Types</h2>
+                    <p>Explore different ways to calm your mind and body.</p>
+                </div>
+
+                <div class="types-grid">
+                    <div class="type-card">
+                        <div class="type-icon">🧘</div>
+                        <h4>Mindfulness</h4>
+                        <p>Focus on the present moment and your breath</p>
+                    </div>
+
+                    <div class="type-card">
+                        <div class="type-icon">💤</div>
+                        <h4>Sleep</h4>
+                        <p>Guided meditation for better sleep</p>
+                    </div>
+
+                    <div class="type-card">
+                        <div class="type-icon">🌊</div>
+                        <h4>Body Scan</h4>
+                        <p>Release tension from your body</p>
+                    </div>
+
+                    <div class="type-card">
+                        <div class="type-icon">❤️</div>
+                        <h4>Loving Kindness</h4>
+                        <p>Cultivate compassion and positivity</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Benefits -->
+            <section class="benefits-section">
+                <div class="section-heading">
+                    <h2>Benefits of Meditation</h2>
+                    <p>Consistent practice supports both mind and body.</p>
+                </div>
+
+                <div class="benefits-list">
+                    <div class="benefit-item">
+                        <i class="fas fa-brain"></i>
+                        <div>
+                            <h4>Mental Clarity</h4>
+                            <p>Improve focus and concentration</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <h4>Stress Relief</h4>
+                            <p>Reduce anxiety and tension</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <i class="fas fa-moon"></i>
+                        <div>
+                            <h4>Better Sleep</h4>
+                            <p>Sleep deeper and wake refreshed</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <i class="fas fa-smile"></i>
+                        <div>
+                            <h4>Emotional Balance</h4>
+                            <p>Feel more calm and peaceful</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tips -->
+            <section class="tips-section">
+                <div class="section-heading">
+                    <h2>Meditation Tips</h2>
+                    <p>Small habits make each session feel easier and better.</p>
+                </div>
+
+                <div class="tips-list">
+                    <div class="tip">
+                        <span class="tip-number">1</span>
+                        <div>
+                            <h4>Find a Quiet Space</h4>
+                            <p>Choose a peaceful place free from distractions</p>
+                        </div>
+                    </div>
+
+                    <div class="tip">
+                        <span class="tip-number">2</span>
+                        <div>
+                            <h4>Get Comfortable</h4>
+                            <p>Sit in a comfortable position you can hold</p>
+                        </div>
+                    </div>
+
+                    <div class="tip">
+                        <span class="tip-number">3</span>
+                        <div>
+                            <h4>Focus on Breathing</h4>
+                            <p>Let your breath be your anchor</p>
+                        </div>
+                    </div>
+
+                    <div class="tip">
+                        <span class="tip-number">4</span>
+                        <div>
+                            <h4>Be Patient</h4>
+                            <p>Benefits come with consistent practice</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Meditation Session Modal -->
+    <div id="sessionModal" class="session-modal" style="display: none;">
+        <div class="session-modal-content">
+            <button type="button" class="close-session" onclick="closeMeditationSession()">×</button>
+
+            <div class="session-timer">
+                <div class="timer-display" id="timerDisplay">5:00</div>
+                <p class="session-title" id="sessionTitle">5 Minutes</p>
+            </div>
+
+            <div class="breathing-guide">
+                <div class="breath-indicator" id="breathIndicator"></div>
+                <p id="breathText">Breathe In (4 sec)</p>
+            </div>
+
+            <div class="session-controls">
+                <button type="button" class="control-btn pause-btn" id="pauseBtn" onclick="togglePause()">
+                    <i class="fas fa-pause"></i>
+                </button>
+                <button type="button" class="control-btn play-btn" id="playBtn" onclick="togglePause()" style="display: none;">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button type="button" class="control-btn end-btn" onclick="endMeditation()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="session-stats">
+                <div class="stat">
+                    <span class="stat-label">Time Remaining</span>
+                    <span class="stat-value" id="timeRemaining">5:00</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Breaths</span>
+                    <span class="stat-value" id="breathCount">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Completion Modal -->
+    <div id="completionModal" class="completion-modal" style="display: none;">
+        <div class="completion-content">
+            <div class="completion-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Great Job! 🎉</h2>
+            <p>You completed your meditation session</p>
+
+            <div class="completion-stats">
+                <div class="stat">
+                    <span class="stat-label">Duration</span>
+                    <span class="stat-value" id="completionTime">5 min</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Breaths</span>
+                    <span class="stat-value" id="completionBreaths">12</span>
+                </div>
+            </div>
+
+            <button type="button" class="btn-primary" onclick="closeCompletion()">
+                Back to Dashboard
+            </button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay" style="display: none;" onclick="closeMeditationSession()"></div>
+
+    <script src="../js/popup.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/meditate.js"></script>
+</body>
+</html>

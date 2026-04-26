@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Healing Hub</title>
+
+    <link rel="stylesheet" href="../css/popup.css">
+    <link rel="stylesheet" href="../css/login.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-left">
+            <div class="nav-logo">
+                <div class="logo-row">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="14" fill="url(#gradient)" />
+                        <path
+                            d="M16 8C16 8 12 14 12 18C12 20.2091 13.7909 22 16 22C18.2091 22 20 20.2091 20 18C20 14 16 8 16 8Z"
+                            fill="white" />
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="32" y2="32">
+                                <stop offset="0%" style="stop-color:#6366f1" />
+                                <stop offset="100%" style="stop-color:#10b981" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h1>Healing Hub</h1>
+                </div>
+
+                <p class="tagline">Your Mental Wellness Companion</p>
+            </div>
+
+            <div class="auth-features">
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <div>
+                        <h3>100% Secure</h3>
+                        <p>Your data is encrypted</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <i class="fas fa-brain"></i>
+                    <div>
+                        <h3>AI-Powered</h3>
+                        <p>Smart insights daily</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <i class="fas fa-users"></i>
+                    <div>
+                        <h3>Community</h3>
+                        <p>Support 24/7</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-quote">
+                <p>"Your mental health matters. Welcome back."</p>
+            </div>
+        </div>
+
+        <div class="auth-right">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h2>Welcome Back</h2>
+                    <p>Sign in to your account</p>
+                </div>
+
+                <form id="login-form" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="login-email" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="login-password" placeholder="Enter your password" required>
+                            <button type="button" class="toggle-password" onclick="toggleLoginPassword(event)" aria-label="Toggle password visibility">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="remember-forgot">
+                        <label class="remember">
+                            <input type="checkbox" id="remember-me">
+                            <span>Remember me</span>
+                        </label>
+
+                        <a href="forgot-password.html" class="forgot-link">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-lg" id="login-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Sign In</span>
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="create-acc.html" class="auth-link">Create one</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loading-spinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+        <p>Signing in...</p>
+    </div>
+
+    <div id="error-toast" class="error-toast"></div>
+
+    <script src="../js/popup.js"></script>
+    <script src="../js/api-config.js"></script>
+    <script src="../js/auth-service.js"></script>
+    <script src="../js/login.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,225 @@
+/* ==================== POPUP OVERLAY ==================== */
+.custom-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s ease;
+}
+
+.custom-popup-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ==================== POPUP BOX ==================== */
+.custom-popup {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.22);
+    overflow: hidden;
+    transform: translateY(20px) scale(0.96);
+    transition: all 0.25s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.custom-popup-overlay.show .custom-popup {
+    transform: translateY(0) scale(1);
+}
+
+/* ==================== HEADER ==================== */
+.custom-popup-top {
+    padding: 28px 24px 18px;
+    text-align: center;
+}
+
+.custom-popup-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.custom-popup.success .custom-popup-icon {
+    background: linear-gradient(135deg, #10b981, #34d399);
+    color: white;
+}
+
+.custom-popup.error .custom-popup-icon {
+    background: linear-gradient(135deg, #ef4444, #f87171);
+    color: white;
+}
+
+.custom-popup.warning .custom-popup-icon {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    color: white;
+}
+
+.custom-popup.info .custom-popup-icon {
+    background: linear-gradient(135deg, #6366f1, #818cf8);
+    color: white;
+}
+
+.custom-popup-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 8px;
+}
+
+.custom-popup-message {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #64748b;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+/* ==================== BUTTONS ==================== */
+.custom-popup-actions {
+    display: flex;
+    gap: 12px;
+    padding: 0 24px 24px;
+    margin-top: 10px;
+}
+
+.custom-popup-btn {
+    flex: 1;
+    border: none;
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.custom-popup-btn:active {
+    transform: scale(0.98);
+}
+
+.custom-popup-btn.primary {
+    background: linear-gradient(135deg, #6366f1, #818cf8);
+    color: white;
+}
+
+.custom-popup-btn.primary:hover {
+    box-shadow: 0 10px 24px rgba(99, 102, 241, 0.28);
+    transform: translateY(-1px);
+}
+
+.custom-popup-btn.secondary {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.custom-popup-btn.secondary:hover {
+    background: #e0e7ff;
+}
+
+/* ==================== SMALL TOAST ==================== */
+.custom-toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.custom-toast {
+    min-width: 280px;
+    max-width: 360px;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+    padding: 16px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    animation: toastIn 0.25s ease;
+    border-left: 5px solid #6366f1;
+}
+
+.custom-toast.success {
+    border-left-color: #10b981;
+}
+
+.custom-toast.error {
+    border-left-color: #ef4444;
+}
+
+.custom-toast.warning {
+    border-left-color: #f59e0b;
+}
+
+.custom-toast-icon {
+    font-size: 20px;
+    margin-top: 2px;
+}
+
+.custom-toast-content h4 {
+    font-size: 15px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 4px;
+}
+
+.custom-toast-content p {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+@keyframes toastIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 480px) {
+    .custom-popup {
+        max-width: 100%;
+        border-radius: 20px;
+    }
+
+    .custom-popup-title {
+        font-size: 20px;
+    }
+
+    .custom-popup-actions {
+        flex-direction: column;
+    }
+
+    .custom-toast-container {
+        top: 14px;
+        right: 14px;
+        left: 14px;
+    }
+
+    .custom-toast {
+        min-width: 100%;
+        max-width: 100%;
+    }
+}

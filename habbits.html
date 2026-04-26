@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Builder - Healing Hub</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/habbits.css">
+    <link rel="stylesheet" href="../css/popup.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+
+        <aside class="sidebar">
+            <div class="nav-logo">
+                <div class="logo-row">
+                    <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="14" fill="url(#gradient)"/>
+                        <path d="M16 8C16 8 12 14 12 18C12 20.2091 13.7909 22 16 22C18.2091 22 20 20.2091 20 18C20 14 16 8 16 8Z" fill="white"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="32" y2="32">
+                                <stop offset="0%" style="stop-color:#6366f1"/>
+                                <stop offset="100%" style="stop-color:#10b981"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h2>Healing Hub</h2>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="./index.html" class="menu-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="quiz.html" class="menu-item">
+                    <i class="fas fa-smile"></i>
+                    <span>Vibe Check</span>
+                </a>
+
+                <a href="mood-journal.html" class="menu-item">
+                    <i class="fas fa-book"></i>
+                    <span>Journal</span>
+                </a>
+
+                <a href="habbits.html" class="menu-item active">
+                    <i class="fas fa-fire"></i>
+                    <span>Habits</span>
+                </a>
+
+                <a href="chatbot.html" class="menu-item">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Chat</span>
+                </a>
+
+                <a href="profile.html" class="menu-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <div class="header-info">
+                    <h1><i class="fas fa-fire"></i> Habit Builder</h1>
+                    <p>Build sustainable habits that support your mental wellness journey</p>
+                </div>
+
+                <div class="header-stats">
+                    <div class="stat-box">
+                        <span class="stat-value" id="total-habits">0</span>
+                        <span class="stat-label">Active Habits</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="longest-streak">0</span>
+                        <span class="stat-label">Longest Streak</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="total-completed">0</span>
+                        <span class="stat-label">Completed Today</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tabs-container">
+                <button class="tab-btn active" onclick="switchTab(0)">
+                    <i class="fas fa-plus-circle"></i> Create Habit
+                </button>
+                <button class="tab-btn" onclick="switchTab(1)">
+                    <i class="fas fa-flame"></i> Active
+                </button>
+                <button class="tab-btn" onclick="switchTab(2)">
+                    <i class="fas fa-check-circle"></i> Completed
+                </button>
+                <button class="tab-btn" onclick="switchTab(3)">
+                    <i class="fas fa-chart-bar"></i> Insights
+                </button>
+            </div>
+
+            <div class="content-wrapper">
+                <div class="tab-pane active" id="tab-0">
+                    <div class="card create-habit-card">
+                        <h2>Create New Habit</h2>
+
+                        <form id="habit-form" onsubmit="handleAddHabit(event)">
+                            <div class="form-group">
+                                <label for="new-habit">Habit Name *</label>
+                                <input type="text" id="new-habit" placeholder="e.g., Morning Meditation" required>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="habit-category">Category *</label>
+                                    <select id="habit-category" required>
+                                        <option value="fitness">🏃 Fitness</option>
+                                        <option value="mindfulness">🧘 Mindfulness</option>
+                                        <option value="nutrition">🥗 Nutrition</option>
+                                        <option value="sleep">😴 Sleep</option>
+                                        <option value="learning">📚 Learning</option>
+                                        <option value="social">👥 Social</option>
+                                        <option value="work">💼 Work</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="habit-frequency">Frequency *</label>
+                                    <select id="habit-frequency" required>
+                                        <option value="daily">Daily</option>
+                                        <option value="weekdays">Weekdays</option>
+                                        <option value="weekly">Weekly</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="habit-duration">Duration (minutes) *</label>
+                                    <div class="input-icon-wrap number-field">
+                                        <i class="fas fa-hourglass-half input-icon"></i>
+                                        <input type="number" id="habit-duration" min="1" max="480" value="15" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="habit-description">Description</label>
+                                <textarea id="habit-description" placeholder="Why is this habit important?"></textarea>
+                            </div>
+
+                            <div class="card reminder-setup-card">
+                                <div class="reminder-card-header">
+                                    <div class="reminder-card-icon">
+                                        <i class="fas fa-bell"></i>
+                                    </div>
+                                    <div class="reminder-card-text">
+                                        <h3>Reminder Settings</h3>
+                                        <p>Set a reminder so your routine stays consistent and easy to follow.</p>
+                                    </div>
+                                </div>
+
+                                <div class="reminder-top-grid">
+                                    <div class="form-group reminder-input-group">
+                                        <label for="habit-reminder-time">Reminder Time</label>
+                                        <div class="input-icon-wrap premium-time-field">
+                                            <span class="time-field-glow"></span>
+
+                                            <div class="time-badge">
+                                                <i class="fas fa-clock"></i>
+                                            </div>
+
+                                            <input type="time" id="habit-reminder-time">
+
+                                            <span class="time-field-end-icon">
+                                                <i class="fas fa-clock"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group reminder-input-group">
+                                        <label for="habit-reminder-message">Reminder Message</label>
+                                        <div class="input-icon-wrap premium-message-field">
+                                            <span class="message-field-glow"></span>
+
+                                            <div class="message-badge">
+                                                <i class="fas fa-sparkles"></i>
+                                            </div>
+
+                                            <input type="text" id="habit-reminder-message" placeholder="Time for your habit ✨">
+
+                                            <span class="message-field-end-icon">
+                                                <i class="fas fa-pen"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="reminder-toggle-row">
+                                    <label class="checkbox-label reminder-toggle-card">
+                                        <input type="checkbox" id="habit-reminder-enabled" checked>
+                                        <span class="checkmark-box"></span>
+                                        <div class="toggle-text">
+                                            <strong>Enable reminder for this habit</strong>
+                                            <small>Get notified at your selected time and days</small>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div class="form-group reminder-days-group">
+                                    <label>Reminder Days</label>
+                                    <div class="day-selector enhanced-day-selector">
+                                        <label class="day-pill"><input type="checkbox" class="reminder-day" value="0" checked><span>Sun</span></label>
+                                        <label class="day-pill"><input type="checkbox" class="reminder-day" value="1" checked><span>Mon</span></label>
+                                        <label class="day-pill"><input type="checkbox" class="reminder-day" value="2" checked><span>Tue</span></label>
+                                        <label class="day-pill"><input type="checkbox" class="reminder-day" value="3" checked><span>Wed</span></label>
+                                        <label class="day-pill"><input type="checkbox" class="reminder-day" value="4" checked><span>Thu</span></label>
+                                        <label class="day-pill"><input type="checkbox" class="reminder-day" value="5" checked><span>Fri</span></label>
+                                        <label class="day-pill"><input type="checkbox" class="reminder-day" value="6" checked><span>Sat</span></label>
+                                    </div>
+                                </div>
+
+                                <div class="reminder-action-row">
+                                    <button type="button" class="btn-secondary reminder-permission-btn" onclick="requestReminderPermission()">
+                                        <i class="fas fa-bell"></i>
+                                        <span>Allow Browser Notifications</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="difficulty-section">
+                                <label>Difficulty Level</label>
+                                <div class="difficulty-btns">
+                                    <button type="button" class="diff-btn active" onclick="setDifficulty('easy', this)">
+                                        <i class="fas fa-leaf"></i> Easy
+                                    </button>
+                                    <button type="button" class="diff-btn" onclick="setDifficulty('medium', this)">
+                                        <i class="fas fa-fire"></i> Medium
+                                    </button>
+                                    <button type="button" class="diff-btn" onclick="setDifficulty('hard', this)">
+                                        <i class="fas fa-bolt"></i> Hard
+                                    </button>
+                                </div>
+                                <input type="hidden" id="habit-difficulty" value="easy">
+                            </div>
+
+                            <button type="submit" class="btn-primary btn-lg" id="create-habit-btn">
+                                <i class="fas fa-plus"></i> Create Habit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="tab-1">
+                    <div class="habits-section reminder-panel">
+                        <div class="section-header">
+                            <h3><i class="fas fa-clock"></i> Upcoming Reminders</h3>
+                            <span class="badge" id="upcoming-reminder-count">0</span>
+                        </div>
+
+                        <div id="reminder-list" class="reminder-list"></div>
+
+                        <div id="empty-reminders" class="empty-state">
+                            <i class="fas fa-bell-slash"></i>
+                            <h3>No reminders yet</h3>
+                            <p>Create a habit with reminder time to see it here</p>
+                        </div>
+                    </div>
+
+                    <div class="habits-section">
+                        <div class="section-header">
+                            <h3>Your Active Habits</h3>
+                            <span class="badge" id="active-count">0</span>
+                        </div>
+
+                        <div id="habit-list" class="habit-list"></div>
+
+                        <div id="empty-active" class="empty-state">
+                            <i class="fas fa-seedling"></i>
+                            <h3>No habits yet</h3>
+                            <p>Create your first habit to get started</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="tab-2">
+                    <div class="habits-section">
+                        <div class="section-header">
+                            <h3>Completed Today</h3>
+                            <span class="badge" id="completed-count">0</span>
+                        </div>
+
+                        <div id="completed-list" class="habit-list"></div>
+
+                        <div id="empty-completed" class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <h3>No completed habits yet</h3>
+                            <p>Complete a habit from Active tab</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="tab-3">
+                    <div class="insights-container">
+                        <div class="stats-row">
+                            <div class="insight-stat">
+                                <div class="stat-big" id="completion-rate">0%</div>
+                                <div class="stat-label">Completion Rate</div>
+                            </div>
+                            <div class="insight-stat">
+                                <div class="stat-big" id="current-streak">0</div>
+                                <div class="stat-label">Current Best Streak</div>
+                            </div>
+                            <div class="insight-stat">
+                                <div class="stat-big" id="total-minutes">0</div>
+                                <div class="stat-label">Minutes This Week</div>
+                            </div>
+                            <div class="insight-stat">
+                                <div class="stat-big" id="habit-points">0</div>
+                                <div class="stat-label">Wellness Points</div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Habit Performance</h3>
+                            <div id="habit-performance" class="habit-performance-list"></div>
+                        </div>
+
+                        <div class="card">
+                            <h3>This Week's Activity</h3>
+                            <div class="weekly-chart">
+                                <div class="day-col"><div class="day-bar"></div><span>Mon</span></div>
+                                <div class="day-col"><div class="day-bar"></div><span>Tue</span></div>
+                                <div class="day-col"><div class="day-bar"></div><span>Wed</span></div>
+                                <div class="day-col"><div class="day-bar"></div><span>Thu</span></div>
+                                <div class="day-col"><div class="day-bar"></div><span>Fri</span></div>
+                                <div class="day-col"><div class="day-bar"></div><span>Sat</span></div>
+                                <div class="day-col"><div class="day-bar"></div><span>Sun</span></div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Achievements</h3>
+                            <div id="achievements" class="achievements-grid"></div>
+                        </div>
+
+                        <div class="card">
+                            <h3><i class="fas fa-sparkles"></i> Smart Suggestions</h3>
+                            <div id="smart-suggestions" class="smart-suggestions"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/api-config.js"></script>
+    <script src="../js/auth-service.js"></script>
+    <script src="../js/popup.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/habbits.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (typeof loadDarkMode === "function") {
+                loadDarkMode();
+            }
+        });
+    </script>
+</body>
+</html>
